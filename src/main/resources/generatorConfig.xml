@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd" >
+<generatorConfiguration>
+    <!-- 设置mysql驱动路径 -->
+    <!-- <classPathEntry location="D:/mysoft/mysql-connector-java-5.1.18-bin.jar" />  -->
+    <context id="context1">
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+                        connectionURL="jdbc:mysql://39.108.147.95:3306/shixi2.5?useUnicode=true"
+                        userId="shixitest"
+                        password="shixiTestpwd!*@$">
+        </jdbcConnection>
+
+        <javaTypeResolver>
+            <property name="forceBigDecimals" value="false"/>
+        </javaTypeResolver>
+
+        <javaModelGenerator targetPackage="com.xj.project.transform.model" targetProject="src/main/java">
+            <property name="enableSubPackages" value="true"/>
+            <property name="trimStrings" value="true"/>
+        </javaModelGenerator>
+
+        <sqlMapGenerator targetPackage="com.xj.project.transform.dao.mapper" targetProject="src/main/java">
+            <property name="enableSubPackages" value="true"/>
+        </sqlMapGenerator>
+
+        <javaClientGenerator type="XMLMAPPER" targetPackage="com.xj.project.transform.dao"
+                             targetProject="src/main/java">
+            <property name="enableSubPackages" value="true"/>
+            <property name="" value=""/>
+        </javaClientGenerator>
+        <!--基础管理-->
+        <!-- <table schema="test" tableName="t_resources_type" domainObjectName="ResourcesType" enableCountByExample="false" enableUpdateByExample="false"
+                enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+         </table>
+         <table schema="test" tableName="t_source" domainObjectName="Source" enableCountByExample="false" enableUpdateByExample="false"
+            enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+        </table>
+        <table schema="test" tableName="t_column" domainObjectName="Column" enableCountByExample="false" enableUpdateByExample="false"
+            enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+        </table>-->
+        <!--资源管理-->
+        <table schema="test" tableName="t_internship_journal" domainObjectName="Journal" enableCountByExample="false"
+               enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+        </table>
+        <table schema="test" tableName="t_internship_summary" domainObjectName="Summary" enableCountByExample="false"
+               enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+        </table>
+        <table schema="test" tableName="t_node" domainObjectName="Node" enableCountByExample="false"
+               enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+        </table>
+        <table schema="test" tableName="t_sign" domainObjectName="Sign" enableCountByExample="false"
+               enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+        </table>
+        <table schema="test" tableName="t_student" domainObjectName="Student" enableCountByExample="false"
+               enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+        </table>
+        <table schema="test" tableName="t_sys_user" domainObjectName="SysUser" enableCountByExample="false"
+               enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+        </table>
+        <table schema="test" tableName="t_task" domainObjectName="Task" enableCountByExample="false"
+               enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+        </table>
+        <table schema="test" tableName="t_task_config" domainObjectName="TaskConfig" enableCountByExample="false"
+               enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+        </table>
+        <table schema="test" tableName="t_task_config_detail" domainObjectName="TaskConfigDetail"
+               enableCountByExample="false" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+        </table>
+        <table schema="test" tableName="t_task_group" domainObjectName="TaskGroup" enableCountByExample="false"
+               enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+        </table>
+        <table schema="test" tableName="t_task_student" domainObjectName="TaskStudent" enableCountByExample="false"
+               enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+        </table>
+
+
+        <!--资源采集管理-->
+
+        <!-- <table schema="test" tableName="t_grab_log" domainObjectName="GrabLog" enableCountByExample="false" enableUpdateByExample="false"
+                enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+         </table>
+         <table schema="test" tableName="t_resources_collect" domainObjectName="ResourcesCollect" enableCountByExample="false" enableUpdateByExample="false"
+                enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+         </table>-->
+
+        <!--数据统计-->
+        <!--     <table schema="test" tableName="t_pv" domainObjectName="Pv" enableCountByExample="false" enableUpdateByExample="false"
+                    enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+             </table>
+             <table schema="test" tableName="t_pv_hour" domainObjectName="PvHour" enableCountByExample="false" enableUpdateByExample="false"
+                    enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+             </table>
+             <table schema="test" tableName="t_pv_month" domainObjectName="PvMonth" enableCountByExample="false" enableUpdateByExample="false"
+                    enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+             </table>
+             <table schema="test" tableName="t_pv_day" domainObjectName="PvDay" enableCountByExample="false" enableUpdateByExample="false"
+                    enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+             </table>-->
+        <!--终端-->
+        <!--    <table schema="test" tableName="t_client" mapperName="ClientDao"    domainObjectName="Client" enableCountByExample="false" enableUpdateByExample="false"
+                   enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+            </table>-->
+    </context>
+</generatorConfiguration> 

@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:c="http://www.springframework.org/schema/c" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:task="http://www.springframework.org/schema/task"  
+	xsi:schemaLocation="
+            http://www.springframework.org/schema/beans
+            http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+            http://www.springframework.org/schema/aop
+            http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
+            http://www.springframework.org/schema/context
+            http://www.springframework.org/schema/context/spring-context-4.0.xsd
+            http://www.springframework.org/schema/tx
+            http://www.springframework.org/schema/tx/spring-tx.xsd
+            http://www.springframework.org/schema/task  
+			http://www.springframework.org/schema/task/spring-task-4.0.xsd">
+	<context:component-scan base-package="com.xj.project.transform" />
+	<!--<context:component-scan base-package="com.xj.project">
+		<context:exclude-filter type="annotation" expression="com.xj.project.*.*.controller"/>
+	</context:component-scan>-->
+	<!-- 加载数据源文件 -->
+	<context:property-placeholder location="classpath:properties/*.properties"  />
+	
+	<bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" destroy-method="close">
+
+		<!--mysql驱动  -->
+		<property name="driverClassName" value="${jdbc.driver}" />
+		<!--mysql账号  -->
+		<property name="username" value="${jdbc.userName}" />
+		<!-- mysql 密码 -->
+		<property name="password" value="${jdbc.passWord}" />
+		<!-- mysql地址 -->
+		<property name="url" value="${jdbc.url}" />
+		<!-- 连接池最大链接数量 -->
+		<property name="maxActive" value="${jdbc.maxActive}" />
+		<!-- 最小等待数量 -->
+		<property name="minIdle" value="${jdbc.minIdle}" />
+		<!-- 等待最大时间 -->
+		<property name="maxWait" value="${jdbc.maxWait}" />
+		<!-- 初始化连接个数 -->
+		<property name="initialSize" value="${jdbc.initialSize}" />
+
+		<property name="maxOpenPreparedStatements" value="100" />
+		<!-- 每隔300000毫秒检测链接池的链接的空闲时间
+            如果空闲时间>minEvictableIdleTimeMillis则释放 -->
+		<property name="timeBetweenEvictionRunsMillis" value="300000" />
+		<!-- 默认60000 毫秒 -->
+		<property name="minEvictableIdleTimeMillis" value="60000"/>
+		<!-- 开启Druid的监控统计功能 -->
+		<property name="filters" value="stat" />
+	</bean>
+
+	<!-- 配置sqlSessionFactory-->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="configLocation" value="classpath:mybatis.xml" />
+		<property name="mapperLocations" value="classpath*:/com/xj/project/transform/dao/mapper/*.xml" />
+		<!-- 设置别名 -->
+		<!-- <property name="typeAliasesPackage" value="com.tmg.*.*.entity" />   -->
+	</bean>
+
+	<!-- 自己实现DAO层 -->
+	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg index="0" ref="sqlSessionFactory"/>
+	</bean>
+	
+	<!--  扫描dao包中的类-->
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="com.xj.project.transform.dao" />
+	 	<!-- <property name="sqlSessionFactoryBeanName"   ref="sqlSessionFactory"/>  --> 
+	</bean>
+
+	<!-- 配置 事务-->
+	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource"></property>
+	</bean>
+	
+	<!-- 配置哪些方法的事务  -->
+ 	<!--<tx:advice id="txAdvice" transaction-manager="transactionManager">
+		<tx:attributes>
+			<tx:method name="save*" propagation="REQUIRED"/>
+			<tx:method name="add*" propagation="REQUIRED"/>
+			<tx:method name="update*" propagation="REQUIRED"/>
+			<tx:method name="edit*" propagation="REQUIRED"/>
+			<tx:method name="del*" propagation="REQUIRED"/>
+			<tx:method name="find*" propagation="NOT_SUPPORTED"/>
+			<tx:method name="get*" propagation="NOT_SUPPORTED"/>
+			<tx:method name="*" propagation="REQUIRED"/>
+		</tx:attributes>
+	</tx:advice>  
+	-->
+	<!-- 配置aop -->
+	<!--<aop:config>
+		<aop:pointcut id="daoMethods" expression="execution(* com.xj.project.*.*.service..*.*(..))" />
+		<aop:advisor order="999" advice-ref="txAdvice" pointcut-ref="daoMethods"/>
+	</aop:config> -->
+
+
+<!--	<import resource="spring-filter.xml"/>-->
+	<!--<import resource="redis.xml"/>-->
+<!--	<import resource="spring-shiro.xml"/>-->
+
+</beans>
