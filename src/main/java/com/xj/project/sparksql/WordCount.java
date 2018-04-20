@@ -20,6 +20,7 @@ import java.util.Arrays;
  */
 public class WordCount {
     public static void main(String[] args) {
+
         SparkConf sConf = new SparkConf();
         sConf.setMaster("spark://master:7077");
         sConf.setAppName("xj_test");
@@ -45,6 +46,7 @@ public class WordCount {
                 return v1 + v2;
             }
         });
+        
         System.out.println(wordCounts.collect());
 
     }

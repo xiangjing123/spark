@@ -29,11 +29,11 @@ public class DataFrameTest {
         sConf.setJars(Arrays.asList("D:\\ScalaWorkspace\\spark\\target\\spark.jar").toArray(new String[1]));
 
         JavaSparkContext jsc =new JavaSparkContext(sConf);
-        HiveContext sqlContext = new HiveContext(jsc);
+        SQLContext sqlContext = new SQLContext(jsc);
         reflectTransform(jsc,sqlContext);
         //dynamicTransform(jsc,sqlContext);//动态转换
     }
-    public static void reflectTransform(JavaSparkContext jsc, HiveContext sqlContext){
+    public static void reflectTransform(JavaSparkContext jsc, SQLContext sqlContext){
         JavaRDD<String> javaRDD=jsc.textFile("hdfs://secondary:9000/data/taskData");
         JavaRDD<TaskConfig> stu=javaRDD.map(new Function<String, TaskConfig>() {
             @Override
@@ -56,7 +56,9 @@ public class DataFrameTest {
 
         });
         DataFrame df =sqlContext.createDataFrame(stu, TaskConfig.class);
+        df.registerTempTable("student");
         df.show();
+       // sqlContext.sql("delete from student where ")
        // df.write().mode(SaveMode.Overwrite).saveAsTable("t_new2_task_config");
 
     }
